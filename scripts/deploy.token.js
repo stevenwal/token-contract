@@ -1,16 +1,23 @@
 require("dotenv").config()
-const BENEFICARY_ADDRESS = process.env.BENEFICARY_ADDRESS
+const BENEFICIARY_ADDRESS = process.env.BENEFICIARY_ADDRESS
+
+// const checksumAddress = ethers.utils.getAddress(BENEFICARY_ADDRESS)
+// console.log(checksumAddress)
 
 async function main() {
-    const token = await ethers.getContractFactory(
+    // const BENEFICIARY_ADDRESS = process.env.BENEFICIARY_ADDRESS
+
+    // const checksumAddress = ethers.utils.getAddress(BENEFICIARY_ADDRESS)
+    // console.log(checksumAddress)
+    const token = await ethers.getContractFactory("Token")
+    // Start deployment, returning a promise that resolves to a contract object
+    const token_ = await token.deploy(
         "BukusToken", 
         "BOKOS", 
-        1000000000,
-        BENEFICARY_ADDRESS 
+        ethers.utils.parseEther('1000000000'),
+        BENEFICIARY_ADDRESS
     )
-    // Start deployment, returning a promise that resolves to a contract object
-    const token = await token.deploy()
-    console.log("Contract deployed to address:", token.address)
+    console.log("Contract deployed to address:", token_.address)
   }
 
 main()
